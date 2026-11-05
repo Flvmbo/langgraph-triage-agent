@@ -1,0 +1,7 @@
+{
+  "api": {"status": "operational", "incident": null},
+  "dashboard": {"status": "degraded", "incident": {"id": "INC-2041", "title": "Dashboard charts loading slowly", "status_page": "https://status.example.com/incidents/INC-2041"}},
+  "exports": {"status": "outage", "incident": {"id": "INC-2042", "title": "CSV exports failing", "status_page": "https://status.example.com/incidents/INC-2042"}},
+  "mobile_app": {"status": "operational", "incident": null},
+  "sso": {"status": "operational", "incident": null}
+}

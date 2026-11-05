@@ -1,0 +1,10 @@
+{
+  "C-1001": {"name": "Lena Brandt", "plan": "starter", "account_status": "active", "flags": [], "renewal_date": null, "open_tickets": 0},
+  "C-1002": {"name": "Nordwerk GmbH", "plan": "enterprise", "account_status": "active", "flags": [], "renewal_date": "2027-06-01", "open_tickets": 1},
+  "C-1003": {"name": "Tomasz Wójcik", "plan": "pro", "account_status": "active", "flags": ["suspicious_login"], "renewal_date": null, "open_tickets": 0},
+  "C-1004": {"name": "Amara Okafor", "plan": "starter", "account_status": "past_due", "flags": [], "renewal_date": null, "open_tickets": 1},
+  "C-1005": {"name": "Helix Logistics AG", "plan": "enterprise", "account_status": "active", "flags": [], "renewal_date": "2026-11-15", "open_tickets": 2},
+  "C-1006": {"name": "Jonas Weber", "plan": "pro", "account_status": "active", "flags": [], "renewal_date": null, "open_tickets": 0},
+  "C-1007": {"name": "Priya Nair", "plan": "trial", "account_status": "trialing", "flags": [], "renewal_date": null, "open_tickets": 0},
+  "C-1008": {"name": "Atlas Retail SE", "plan": "enterprise", "account_status": "active", "flags": [], "renewal_date": "2027-02-01", "open_tickets": 0}
+}

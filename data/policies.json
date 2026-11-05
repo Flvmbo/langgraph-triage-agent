@@ -1,0 +1,19 @@
+{
+  "priorities": "Base priority: urgent = suspected account compromise, data exposure, or an outage blocking an enterprise customer; high = blocking issue for one customer, double charges, phishing reports, privacy requests with legal deadlines; medium = standard billing, account and cancellation requests, known incidents; low = feature requests, cosmetic bugs and general questions. Enterprise customers move up one level (maximum urgent) for billing, technical_issue and cancellation tickets only.",
+  "refunds": "Refunds requested within 14 days of the charge for amounts up to EUR 100 are approved automatically (action auto_resolve). Larger amounts or older charges go to the billing team (route_to_team, team billing). Category billing.",
+  "double_charge": "Duplicate charges are verified and reversed by the billing team: route_to_team, team billing, priority high. Category billing.",
+  "payment_methods": "Customers update cards and payment methods themselves via the billing settings link; reply with instructions (auto_resolve). Category billing, priority medium.",
+  "past_due": "Past-due accounts lose dashboard access after 7 days. Access returns automatically once the payment method is updated; reply with the billing settings link (auto_resolve). Category billing, priority medium.",
+  "account_access": "Forgotten passwords, missing verification emails and standard lockouts are solved with a self-service reset or resend link (auto_resolve). Category account_access, priority medium. Exception: see flagged_accounts.",
+  "flagged_accounts": "If the customer record carries the suspicious_login flag, ANY access or account-change request (password, email, login problems) is treated as a possible compromise: category security, priority urgent, escalate_to_human. Never send reset links to a flagged account.",
+  "security_incidents": "Suspected account compromise, unknown logins, stolen devices or requests to revoke sessions: category security, priority urgent, escalate_to_human.",
+  "phishing": "Reports of phishing emails impersonating us go to the security team: category security, priority high, route_to_team, team security.",
+  "known_incidents": "If check_service_status shows an active incident for the affected component, reply with the incident ID and status page link (auto_resolve). Category technical_issue, priority medium (enterprise: high).",
+  "outages": "Errors affecting many requests or users with NO matching active incident are escalated to engineering as a potential new outage: category technical_issue, route_to_team, team engineering. Priority high (enterprise: urgent).",
+  "bugs": "Product bugs go to engineering (route_to_team, team engineering). Blocking bugs that stop the customer working are priority high; cosmetic issues such as typos or misaligned UI are priority low. Category technical_issue. Enterprise bump applies.",
+  "feature_requests": "Feature and integration requests are logged for the product team: category feature_request, priority low, route_to_team, team product. No enterprise bump.",
+  "cancellations": "Subscription cancellations and non-renewal notices go to the retention team: category cancellation, priority medium (enterprise: high), route_to_team, team retention.",
+  "trials": "Trials end automatically and are never charged without the customer adding a plan; reply explaining this (auto_resolve). Category cancellation, priority medium.",
+  "privacy_requests": "Formal data subject requests (data export/portability, deletion/erasure) have legal deadlines: category privacy, priority high, route_to_team, team privacy. General questions about what data we store are answered with the privacy policy link: category privacy, priority medium, auto_resolve.",
+  "discounts": "General pricing and discount questions are answered with the pricing page and current offers (auto_resolve). Category billing, priority low."
+}

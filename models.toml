@@ -1,0 +1,14 @@
+# Model registry: alias -> "provider:model-id" (the format init_chat_model understands).
+#
+# Swap models by alias (`--model claude`) without touching code. Model IDs change often:
+# check each provider's current model list and edit these, or override one per run with an
+# environment variable, e.g. TRIAGE_MODEL_OPENAI="openai:<model-id>".
+# You can also pass any "provider:model-id" string directly as --model.
+
+[models]
+claude       = "anthropic:claude-sonnet-5-5"
+claude-haiku = "anthropic:claude-haiku-5-5"
+openai       = "openai:gpt-4o-mini"
+gemini       = "google_genai:gemini-2.5-flash"
+bedrock      = "bedrock_converse:anthropic.claude-3-5-haiku-20241022-v1:0"
+llama        = "ollama:llama3.1"

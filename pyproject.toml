@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "triage-agent"
+version = "0.1.0"
+description = "Model-agnostic support-ticket triage agent built with LangGraph, MCP tools, structured outputs and model evals"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph>=1.2",
+    "langchain>=1.4",
+    "langchain-core>=1.7",
+    "langchain-mcp-adapters>=0.3",
+    "mcp>=1.30",
+    "pydantic>=2.10",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+# Install only the providers you have keys for, e.g. pip install -e ".[anthropic,openai]"
+anthropic = ["langchain-anthropic>=1.7"]
+openai = ["langchain-openai>=1.7"]
+google = ["langchain-google-genai>=4.4"]
+bedrock = ["langchain-aws>=1.9"]
+ollama = ["langchain-ollama>=1.1"]
+all = ["triage-agent[anthropic,openai,google,bedrock,ollama]"]
+dev = ["pytest>=8", "pytest-asyncio>=0.24"]
+
+[project.scripts]
+triage = "triage_agent.cli:main"
+triage-mcp = "triage_agent.mcp_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
