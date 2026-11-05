@@ -6,6 +6,7 @@
 # You can also pass any "provider:model-id" string directly as --model.
 
 [models]
+claude-opus  = "anthropic:claude-opus-5-5"
 claude       = "anthropic:claude-sonnet-5-5"
 claude-haiku = "anthropic:claude-haiku-5-5"
 openai       = "openai:gpt-4o-mini"
