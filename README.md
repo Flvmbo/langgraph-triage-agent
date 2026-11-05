@@ -83,7 +83,27 @@ The harness scores exact-match accuracy on category, priority and action (plus "
 correct"), errors, mean latency and total tokens. It writes `evals/results.md` and
 per-ticket JSONL to `evals/results/` for error analysis.
 
-<!-- Paste the generated evals/results.md table here once you have run it. -->
+### Results (v1 set, 30 tickets, Nov 2026)
+
+| Model | Category | Priority | Action | All three | Errors | p50 latency | Tokens / ticket |
+|---|---|---|---|---|---|---|---|
+| Claude Opus 5.5 | 100% | 100% | 100% | 100% | 0/30 | 12.9s | 6,064 |
+| Claude Sonnet 5.5 | 100% | 100% | 100% | 100% | 0/30 | 9.8s | 5,984 |
+| Claude Haiku 5.5 | 100% | 100% | 100% | 100% | 0/30 | 7.6s | 6,734 |
+
+All three models cited a policy on every ticket and filled the conditional fields
+(`team`, `customer_reply`) consistently. On the trap ticket T06, all three escalated
+instead of sending a reset link.
+
+**What this does and doesn't show.** The v1 set is **saturated**: its policies state almost
+every label explicitly, so it measures policy retrieval and instruction-following, not
+judgement, and it cannot separate the models on accuracy. On this workload the deciding
+factors are latency and cost. **Haiku matches Opus at about half the latency**, which makes
+it the right default for routine triage, with Sonnet or Opus kept for ambiguous cases.
+Mean confidence was 0.87 for Haiku, 0.94 for Sonnet and 0.92 for Opus; at the default 0.7
+threshold, Haiku's lowest-confidence ticket (0.60) would have gone to human review. A harder
+set built to discriminate between models (boundary cases, multi-issue and adversarial
+tickets) is the next step.
 
 ## Tracing
 
