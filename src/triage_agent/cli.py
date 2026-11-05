@@ -22,10 +22,11 @@ from .tools import load_tools
 
 def _ticket_from_args(args: argparse.Namespace) -> Ticket:
     if args.eval_id:
-        for line in (DATA_DIR / "eval_tickets.jsonl").read_text(encoding="utf-8").splitlines():
-            row = json.loads(line)
-            if row["id"] == args.eval_id:
-                return Ticket(id=row["id"], subject=row["subject"], body=row["body"], customer_id=row["customer_id"])
+        for name in ("eval_tickets.jsonl", "eval_tickets_hard.jsonl"):
+            for line in (DATA_DIR / name).read_text(encoding="utf-8").splitlines():
+                row = json.loads(line)
+                if row["id"] == args.eval_id:
+                    return Ticket(id=row["id"], subject=row["subject"], body=row["body"], customer_id=row["customer_id"])
         raise SystemExit(f"No eval ticket with id {args.eval_id}")
     if not (args.subject and args.body):
         raise SystemExit("Pass --eval-id, or both --subject and --body")
@@ -68,7 +69,7 @@ async def _run(args: argparse.Namespace) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Triage a support ticket with any LLM.")
     parser.add_argument("--model", default="claude", help="alias from models.toml or provider:model-id")
-    parser.add_argument("--eval-id", help="use a ticket from data/eval_tickets.jsonl, e.g. T06")
+    parser.add_argument("--eval-id", help="use an eval ticket by id, e.g. T06 or H06")
     parser.add_argument("--id", default="CLI-1")
     parser.add_argument("--customer", help="customer ID, e.g. C-1001")
     parser.add_argument("--subject")

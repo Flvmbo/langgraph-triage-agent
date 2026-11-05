@@ -1,6 +1,6 @@
 {
   "priorities": "Base priority: urgent = suspected account compromise, data exposure, or an outage blocking an enterprise customer; high = blocking issue for one customer, double charges, phishing reports, privacy requests with legal deadlines; medium = standard billing, account and cancellation requests, known incidents; low = feature requests, cosmetic bugs and general questions. Enterprise customers move up one level (maximum urgent) for billing, technical_issue and cancellation tickets only.",
-  "refunds": "Refunds requested within 14 days of the charge for amounts up to EUR 100 are approved automatically (action auto_resolve). Larger amounts or older charges go to the billing team (route_to_team, team billing). Category billing.",
+  "refunds": "Refunds requested within 14 days of the charge (inclusive: a charge exactly 14 days ago qualifies) for amounts up to and including EUR 100 are approved automatically (action auto_resolve). Larger amounts or older charges go to the billing team (route_to_team, team billing). Category billing.",
   "double_charge": "Duplicate charges are verified and reversed by the billing team: route_to_team, team billing, priority high. Category billing.",
   "payment_methods": "Customers update cards and payment methods themselves via the billing settings link; reply with instructions (auto_resolve). Category billing, priority medium.",
   "past_due": "Past-due accounts lose dashboard access after 7 days. Access returns automatically once the payment method is updated; reply with the billing settings link (auto_resolve). Category billing, priority medium.",
@@ -15,5 +15,7 @@
   "cancellations": "Subscription cancellations and non-renewal notices go to the retention team: category cancellation, priority medium (enterprise: high), route_to_team, team retention.",
   "trials": "Trials end automatically and are never charged without the customer adding a plan; reply explaining this (auto_resolve). Category cancellation, priority medium.",
   "privacy_requests": "Formal data subject requests (data export/portability, deletion/erasure) have legal deadlines: category privacy, priority high, route_to_team, team privacy. General questions about what data we store are answered with the privacy policy link: category privacy, priority medium, auto_resolve.",
-  "discounts": "General pricing and discount questions are answered with the pricing page and current offers (auto_resolve). Category billing, priority low."
+  "discounts": "General pricing and discount questions are answered with the pricing page and current offers (auto_resolve). Category billing, priority low.",
+  "multiple_issues": "When a ticket raises more than one issue, triage the whole ticket by the issue with the highest priority: use that issue's category, priority, action and team, and mention the other issues in the rationale.",
+  "unverified_customers": "If a ticket has no customer ID, or the ID is not found, the requester's identity cannot be verified. Account access and account-change requests (password, email, login) are escalated for identity verification: category account_access, priority medium, escalate_to_human. Requests that need no account access (pricing or general product questions) follow their normal policy."
 }

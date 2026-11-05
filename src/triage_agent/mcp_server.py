@@ -36,7 +36,8 @@ def get_policy(topic: str) -> dict[str, Any]:
 
     Topics: priorities, refunds, double_charge, payment_methods, past_due, account_access,
     flagged_accounts, security_incidents, phishing, known_incidents, outages, bugs,
-    feature_requests, cancellations, trials, privacy_requests, discounts.
+    feature_requests, cancellations, trials, privacy_requests, discounts, multiple_issues,
+    unverified_customers.
     """
     policies = _load("policies.json")
     key = topic.strip().lower().replace(" ", "_").replace("-", "_")

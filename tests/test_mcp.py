@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 
+import pytest
 from langchain_core.messages import AIMessage, ToolMessage
 
 from triage_agent import mcp_server
@@ -30,18 +31,36 @@ def test_service_status():
     assert set(mcp_server.check_service_status()) >= {"api", "dashboard", "exports"}
 
 
-def test_every_eval_label_uses_a_valid_value():
+@pytest.mark.parametrize("dataset", ["eval_tickets.jsonl", "eval_tickets_hard.jsonl"])
+def test_every_eval_label_uses_a_valid_value(dataset):
     from typing import get_args
 
     from triage_agent.config import DATA_DIR
     from triage_agent.schemas import Action, Category, Priority
 
-    for line in (DATA_DIR / "eval_tickets.jsonl").read_text(encoding="utf-8").splitlines():
-        row = json.loads(line)
+    rows = [json.loads(line) for line in (DATA_DIR / dataset).read_text(encoding="utf-8").splitlines()]
+    assert len({r["id"] for r in rows}) == len(rows), "duplicate ticket ids"
+    for row in rows:
         assert row["expected"]["category"] in get_args(Category), row["id"]
         assert row["expected"]["priority"] in get_args(Priority), row["id"]
         assert row["expected"]["action"] in get_args(Action), row["id"]
-        assert mcp_server.lookup_customer(row["customer_id"]).get("error") is None, row["id"]
+        if row.get("trap") != "identity" and row["customer_id"] is not None:
+            assert mcp_server.lookup_customer(row["customer_id"]).get("error") is None, row["id"]
+
+
+def test_hard_set_covers_every_trap_type():
+    from triage_agent.config import DATA_DIR
+
+    rows = [json.loads(line) for line in (DATA_DIR / "eval_tickets_hard.jsonl").read_text(encoding="utf-8").splitlines()]
+    assert {r["trap"] for r in rows} == {
+        "boundary", "over-application", "injection", "language", "multi-issue", "identity", "evidence"
+    }
+
+
+def test_new_policies_exist():
+    assert "highest priority" in mcp_server.get_policy("multiple_issues")["policy"]
+    assert "identity" in mcp_server.get_policy("unverified_customers")["policy"]
+    assert "inclusive" in mcp_server.get_policy("refunds")["policy"]
 
 
 async def test_tools_load_over_stdio_mcp():
