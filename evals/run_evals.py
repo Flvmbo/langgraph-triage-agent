@@ -54,11 +54,17 @@ async def evaluate_model(alias: str, rows: list[dict], tools, concurrency: int, 
             try:
                 state = await graph.ainvoke(initial_state(ticket), {"configurable": {"thread_id": f"{alias}-{row['id']}"}})
                 decision, error, tokens = state["decision"].model_dump(), None, total_tokens(state)
+                tool_calls = [
+                    {"name": c["name"], "args": c["args"]}
+                    for m in state["messages"]
+                    for c in (getattr(m, "tool_calls", None) or [])
+                ]
             except Exception as exc:  # one bad ticket must not sink the whole run
-                decision, error, tokens = None, f"{type(exc).__name__}: {exc}", 0
+                decision, error, tokens, tool_calls = None, f"{type(exc).__name__}: {exc}", 0, []
             latency = time.perf_counter() - start
         return {"id": row["id"], "trap": row.get("trap"), "expected": row["expected"], "decision": decision, "error": error,
-                "latency_s": round(latency, 2), "tokens": tokens, "hits": score(decision, row["expected"])}
+                "latency_s": round(latency, 2), "tokens": tokens, "tool_calls": tool_calls,
+                "hits": score(decision, row["expected"])}
 
     results = await asyncio.gather(*(run_one(r) for r in rows))
     out_dir = EVALS_DIR / "results" / dataset
